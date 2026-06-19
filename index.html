@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🎂 Happy Birthday!</title>
+  <script>
+    // Path fix for GitHub Pages (username.github.io/NAMA-REPO/)
+    window.__BASE__ = (function () {
+      var loc = window.location;
+      if (loc.protocol === "file:") return "";
+      if (!loc.hostname.endsWith("github.io")) return "";
+      var parts = loc.pathname.split("/").filter(Boolean);
+      if (parts.length === 0) return "";
+      if (parts[0].endsWith(".html")) return "";
+      return "/" + parts[0] + "/";
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" id="app-css" />
+  <script>
+    if (window.__BASE__) {
+      document.getElementById("app-css").href = window.__BASE__ + "css/style.css";
+    }
+  </script>
+</head>
+<body>
+
+  <!-- 🎁 Tap to open -->
+  <div id="intro">
+    <div class="gift-box" role="button" aria-label="Open birthday gift">
+      <div class="gift-bow">🎀</div>
+      <div class="gift-lid"></div>
+      <div class="gift-body">
+        <div class="gift-ribbon-v"></div>
+        <div class="gift-ribbon-h"></div>
+      </div>
+    </div>
+    <p class="intro-text">Tap to open your gift</p>
+    <p class="intro-name" id="intro-name">Friend</p>
+  </div>
+
+  <!-- Animation layers -->
+  <canvas id="particles-canvas"></canvas>
+  <canvas id="confetti-canvas"></canvas>
+  <canvas id="fireworks-canvas"></canvas>
+  <div class="balloons-container" id="balloons-container"></div>
+  <div class="floating-emojis" id="floating-emojis"></div>
+  <div class="sparkle-trail" id="sparkle-trail"></div>
+
+  <!-- Main page -->
+  <div id="main-content">
+
+    <!-- Hero -->
+    <header class="hero">
+      <div class="hero-stars" id="hero-stars"></div>
+      <div class="hero-emoji">🎂</div>
+      <h1 class="hero-title shimmer">Happy Birthday,<br><span id="hero-name">Friend</span>!</h1>
+      <p class="hero-subtitle">This special page just for you ✨</p>
+      <span class="hero-date" id="hero-date" style="display:none"></span>
+      <p class="scroll-hint">↓ scroll down ↓</p>
+    </header>
+
+    <!-- Interactive Cake -->
+    <section class="cake-section reveal-section" id="cake-section">
+      <h2 class="section-title">Light the Candles!</h2>
+      <p class="section-subtitle" id="cake-hint">Tap each candle to put the fire on 🔥</p>
+
+      <div class="cake-stage" id="cake-stage">
+        <div class="cake-glow" id="cake-glow"></div>
+        <div class="wind-burst" id="wind-burst"></div>
+
+        <div class="cake-wrapper">
+          <div class="cake-body">
+            <div class="candles-row" id="candles-row"></div>
+            <div class="cake-tier tier-top">
+              <div class="frosting-drip"></div>
+            </div>
+            <div class="cake-tier tier-middle">
+              <div class="frosting-drip"></div>
+            </div>
+            <div class="cake-tier tier-bottom">
+              <div class="frosting-drip"></div>
+            </div>
+          </div>
+          <div class="cake-plate"></div>
+        </div>
+
+        <div class="smoke-container" id="smoke-container"></div>
+      </div>
+
+      <p class="cake-status" id="cake-status">Tap the candle to start 🔥</p>
+
+      <div class="cake-actions">
+        <button type="button" class="cake-btn light-all-btn hidden" id="light-all-btn">
+          🔥 Light All Candles
+        </button>
+        <button type="button" class="cake-btn blow-btn hidden" id="blow-btn">
+          💨 Blow Out the Candle!
+        </button>
+        <button type="button" class="cake-btn relight-btn hidden" id="relight-btn">
+          🕯️ Light Again
+        </button>
+      </div>
+
+      <div class="wish-banner hidden" id="wish-banner">
+        <span class="wish-sparkle">✨</span>
+        <p class="wish-text">Wish Granted!</p>
+        <p class="wish-sub">May all your dreams come true this year 🎉</p>
+        <span class="wish-sparkle">✨</span>
+      </div>
+    </section>
+
+    <!-- Messages -->
+    <section class="messages-section reveal-section">
+      <h2 class="section-title">A Message For You</h2>
+      <p class="section-subtitle">Read slowly… someone meant every word 💙</p>
+      <div class="messages-box">
+        <p class="typewriter-text" id="typewriter-text">
+          <span class="typewriter-cursor"></span>
+        </p>
+      </div>
+      <div class="message-dots" id="message-dots"></div>
+    </section>
+
+    <!-- Photos: 3 main + sprinkles -->
+    <section class="photos-section reveal-section">
+      <h2 class="section-title">Our Moments</h2>
+      <div class="photos-showcase" id="photos-showcase">
+        <div class="photo-sprinkles" id="photo-sprinkles" aria-hidden="true"></div>
+        <div class="main-photos" id="main-photos"></div>
+      </div>
+    </section>
+
+    <!-- Personal note -->
+    <section class="note-section reveal-section" id="note-section">
+      <h2 class="section-title">One Last Thing…</h2>
+      <div class="note-card">
+        <p class="note-text" id="note-text"></p>
+      </div>
+    </section>
+
+    <footer>
+      <p class="footer-hearts">💙 🎉 💙</p>
+      <p>Happy birthday ya kalo mau kado dateng ke rumah 🎁</p>
+    </footer>
+  </div>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightbox-close" aria-label="Close">✕</button>
+    <img id="lightbox-img" src="" alt="Photo enlarged" />
+    <p class="lightbox-caption" id="lightbox-caption"></p>
+  </div>
+
+  <!-- Music (optional) -->
+  <audio id="bg-music" loop preload="auto"></audio>
+  <button class="music-btn" id="music-btn" aria-label="Toggle music">🔇</button>
+
+  <noscript>
+    <style>
+      #intro { display: none !important; }
+      #main-content { opacity: 1 !important; }
+      .reveal-section { opacity: 1 !important; transform: none !important; }
+    </style>
+  </noscript>
+
+  <script>
+    (function () {
+      var base = window.__BASE__ || "";
+      var files = ["config.js", "js/cake.js", "js/main.js"];
+
+      function loadScript(i) {
+        if (i >= files.length) return;
+        var s = document.createElement("script");
+        s.src = base + files[i];
+        s.onload = function () { loadScript(i + 1); };
+        s.onerror = function () {
+          console.error("Gagal load:", s.src);
+          loadScript(i + 1);
+        };
+        document.body.appendChild(s);
+      }
+
+      loadScript(0);
+    })();
+  </script>
+</body>
+</html>
