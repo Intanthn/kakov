@@ -28,19 +28,19 @@ const BIRTHDAY_CONFIG = {
   // ── PHOTOS ──────────────────────────────────────────────────
   // 3 BIG main photos (animated showcase — tap to enlarge)
   mainPhotos: [
-    { src: "photos/photo1.jpg", caption: "" },
-    { src: "photos/photo2.jpg", caption: "" },
-    { src: "photos/photo3.jpg", caption: "" },
+    { src: "photo1.jpg", caption: "" },
+    { src: "photo2.jpg", caption: "" },
+    { src: "photo3.jpg", caption: "" },
   ],
 
   // Extra photos — repeated as many small floating sprinkles around the main ones
   sprinklePhotos: [
-    { src: "photos/photo4.jpg" },
-    { src: "photos/photo5.jpg" },
-    { src: "photos/photo6.jpg" },
-    { src: "photos/photo7.jpg" },
-    { src: "photos/photo8.jpg" },
-    { src: "photos/photo9.jpg" },
+    { src: "photo4.jpg" },
+    { src: "photo5.jpg" },
+    { src: "photo6.jpg" },
+    { src: "photo7.jpg" },
+    { src: "photo8.jpg" },
+    { src: "photo9.jpg" },
   ],
 
   // How many small photos to show (reuses sprinklePhotos if needed)
